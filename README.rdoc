@@ -1,3 +1,7 @@
 = net/http2
 
 net/http2 is a fresh take on Ruby's net/http. The aim is to develop a lean HTTP client implementation and providing a compatibility layer for the most important features in net/http.
+
+== Legal & props
+
+The parser code is based on Zed Shaw's RFuzz parser. Code is used under the terms of the Ruby license: http://www.ruby-lang.org/en/LICENSE.txt.

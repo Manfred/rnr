@@ -5,7 +5,7 @@ module Net
     class HTTP_1_1_Parser
       
       
-# line 28 "lib/net/http/http_1_1_parser.rl"
+# line 39 "lib/net/http/http_1_1_parser.rl"
 
       
       
@@ -16,7 +16,8 @@ class << self
 end
 self._http_1_1_parser_actions = [
 	0, 1, 0, 1, 1, 1, 2, 1, 
-	3
+	3, 1, 4, 1, 5, 1, 6, 1, 
+	7, 1, 8, 2, 6, 7
 ]
 
 class << self
@@ -25,7 +26,8 @@ class << self
 end
 self._http_1_1_parser_key_offsets = [
 	0, 0, 1, 2, 3, 4, 5, 7, 
-	10, 12, 15, 17, 20, 20, 21, 23
+	10, 12, 15, 17, 20, 20, 21, 22, 
+	38, 39, 55, 57, 58
 ]
 
 class << self
@@ -35,8 +37,12 @@ end
 self._http_1_1_parser_trans_keys = [
 	72, 84, 84, 80, 47, 48, 57, 46, 
 	48, 57, 48, 57, 32, 48, 57, 48, 
-	57, 32, 48, 57, 13, 10, 13, 13, 
-	0
+	57, 32, 48, 57, 13, 10, 13, 33, 
+	124, 126, 35, 39, 42, 43, 45, 46, 
+	48, 57, 65, 90, 94, 122, 10, 33, 
+	58, 124, 126, 35, 39, 42, 43, 45, 
+	46, 48, 57, 65, 90, 94, 122, 13, 
+	32, 13, 0
 ]
 
 class << self
@@ -45,7 +51,8 @@ class << self
 end
 self._http_1_1_parser_single_lengths = [
 	0, 1, 1, 1, 1, 1, 0, 1, 
-	0, 1, 0, 1, 0, 1, 2, 1
+	0, 1, 0, 1, 0, 1, 1, 4, 
+	1, 4, 2, 1, 0
 ]
 
 class << self
@@ -54,7 +61,8 @@ class << self
 end
 self._http_1_1_parser_range_lengths = [
 	0, 0, 0, 0, 0, 0, 1, 1, 
-	1, 1, 1, 1, 0, 0, 0, 0
+	1, 1, 1, 1, 0, 0, 0, 6, 
+	0, 6, 0, 0, 0
 ]
 
 class << self
@@ -63,7 +71,23 @@ class << self
 end
 self._http_1_1_parser_index_offsets = [
 	0, 0, 2, 4, 6, 8, 10, 12, 
-	15, 17, 20, 22, 25, 26, 28, 31
+	15, 17, 20, 22, 25, 26, 28, 30, 
+	41, 43, 54, 57, 59
+]
+
+class << self
+	attr_accessor :_http_1_1_parser_indicies
+	private :_http_1_1_parser_indicies, :_http_1_1_parser_indicies=
+end
+self._http_1_1_parser_indicies = [
+	0, 1, 2, 1, 3, 1, 4, 1, 
+	5, 1, 6, 1, 7, 6, 1, 8, 
+	1, 9, 8, 1, 10, 1, 11, 12, 
+	1, 13, 15, 14, 16, 1, 17, 18, 
+	18, 18, 18, 18, 18, 18, 18, 18, 
+	1, 19, 1, 20, 21, 20, 20, 20, 
+	20, 20, 20, 20, 20, 1, 23, 24, 
+	22, 26, 25, 1, 0
 ]
 
 class << self
@@ -71,11 +95,10 @@ class << self
 	private :_http_1_1_parser_trans_targs, :_http_1_1_parser_trans_targs=
 end
 self._http_1_1_parser_trans_targs = [
-	2, 0, 3, 0, 4, 0, 5, 0, 
-	6, 0, 7, 0, 8, 7, 0, 9, 
-	0, 10, 9, 0, 11, 0, 12, 11, 
-	0, 13, 14, 13, 15, 14, 13, 14, 
-	13, 0
+	2, 0, 3, 4, 5, 6, 7, 8, 
+	9, 10, 11, 12, 11, 13, 13, 14, 
+	15, 16, 17, 20, 17, 18, 19, 14, 
+	18, 19, 14
 ]
 
 class << self
@@ -84,10 +107,9 @@ class << self
 end
 self._http_1_1_parser_trans_actions = [
 	1, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 3, 0, 0, 1, 0, 5, 0, 
-	0, 1, 7, 0, 0, 7, 0, 7, 
-	0, 0
+	0, 3, 1, 5, 0, 1, 0, 7, 
+	0, 0, 9, 17, 0, 11, 13, 19, 
+	13, 0, 15
 ]
 
 class << self
@@ -97,7 +119,7 @@ self.http_1_1_parser_start = 1;
 class << self
 	attr_accessor :http_1_1_parser_first_final
 end
-self.http_1_1_parser_first_final = 15;
+self.http_1_1_parser_first_final = 20;
 class << self
 	attr_accessor :http_1_1_parser_error
 end
@@ -109,22 +131,22 @@ end
 self.http_1_1_parser_en_main = 1;
 
 
-# line 31 "lib/net/http/http_1_1_parser.rl"
+# line 42 "lib/net/http/http_1_1_parser.rl"
       
       def self.http_1_1_parser_parse(parser, data)
         eof  = data.length
         data = data.unpack("c*") if data.is_a?(String)
         
-# line 119 "lib/net/http/http_1_1_parser.rb"
+# line 141 "lib/net/http/http_1_1_parser.rb"
 begin
 	p ||= 0
 	pe ||= data.length
 	cs = http_1_1_parser_start
 end
 
-# line 36 "lib/net/http/http_1_1_parser.rl"
+# line 47 "lib/net/http/http_1_1_parser.rl"
         
-# line 128 "lib/net/http/http_1_1_parser.rb"
+# line 150 "lib/net/http/http_1_1_parser.rb"
 begin
 	_klen, _trans, _keys, _acts, _nacts = nil
 	_goto_level = 0
@@ -195,6 +217,7 @@ begin
 	     _trans += _klen
 	  end
 	end while false
+	_trans = _http_1_1_parser_indicies[_trans]
 	cs = _http_1_1_parser_trans_targs[_trans]
 	if _http_1_1_parser_trans_actions[_trans] != 0
 		_acts = _http_1_1_parser_trans_actions[_trans]
@@ -224,7 +247,32 @@ when 3 then
 		begin
  parser.handle_reason_phrase(data, mark, p) 		end
 # line 11 "lib/net/http/http_1_1_parser.rl"
-# line 228 "lib/net/http/http_1_1_parser.rb"
+when 4 then
+# line 13 "lib/net/http/http_1_1_parser.rl"
+		begin
+ start_field_name = p 		end
+# line 13 "lib/net/http/http_1_1_parser.rl"
+when 5 then
+# line 14 "lib/net/http/http_1_1_parser.rl"
+		begin
+ parser.handle_field_name(data, start_field_name, p) 		end
+# line 14 "lib/net/http/http_1_1_parser.rl"
+when 6 then
+# line 15 "lib/net/http/http_1_1_parser.rl"
+		begin
+ start_field_value = p 		end
+# line 15 "lib/net/http/http_1_1_parser.rl"
+when 7 then
+# line 16 "lib/net/http/http_1_1_parser.rl"
+		begin
+ parser.handle_field_value(data, start_field_value, p) 		end
+# line 16 "lib/net/http/http_1_1_parser.rl"
+when 8 then
+# line 18 "lib/net/http/http_1_1_parser.rl"
+		begin
+ parser.done! 		end
+# line 18 "lib/net/http/http_1_1_parser.rl"
+# line 276 "lib/net/http/http_1_1_parser.rb"
 			end # action switch
 		end
 	end
@@ -251,11 +299,17 @@ when 3 then
 	end
 	end
 
-# line 37 "lib/net/http/http_1_1_parser.rl"
+# line 48 "lib/net/http/http_1_1_parser.rl"
       end
       
       attr_accessor :data, :mark
-      attr_accessor :http_version, :status_code, :reason_phrase
+      attr_accessor :response
+      attr_accessor :done
+      
+      def initialize(response)
+        self.response = response
+        self.done = false
+      end
       
       def parse(data)
         self.class.http_1_1_parser_parse(self, data)
@@ -263,17 +317,32 @@ when 3 then
       
       def handle_version(data, mark, pointer)
         version = self.class.join(data, mark, pointer)
-        self.http_version = version.split('/').last
+        response.http_version = version.split('/').last
       end
       
       def handle_status_code(data, mark, pointer)
         status_code = self.class.join(data, mark, pointer)
-        self.status_code = status_code.to_i
+        response.status_code = status_code.to_i
       end
       
       def handle_reason_phrase(data, mark, pointer)
         reason_phrase = self.class.join(data, mark, pointer)
-        self.reason_phrase = reason_phrase
+        response.reason_phrase = reason_phrase
+      end
+      
+      def handle_field_name(data, mark, pointer)
+        @last_field_name = self.class.join(data, mark, pointer-1).downcase
+      end
+      
+      def handle_field_value(data, mark, pointer)
+        if @last_field_name
+          value = self.class.join(data, mark, pointer)
+          response.headers[@last_field_name] = value
+        end
+      end
+      
+      def done!
+        self.done = true
       end
       
       def self.join(data, mark, pointer)
