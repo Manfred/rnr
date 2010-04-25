@@ -1,10 +1,20 @@
 recipe :ruby
 
+module TestMapper
+  def self.tests_for(file)
+    name = file.split('/').last.split('.').first
+    ["test/functional/#{name}_test.rb"]
+  end
+end
+
 process do |files|
-  files.take_and_map do |file|
+  Ruby.run_tests(files.take_and_map do |file|
     case file
+    when %r{lib/net/.*\.rb}
+      TestMapper.tests_for(file)
     when %r{.*\.rl}
       execute "ragel -R #{file}"
+      TestMapper.tests_for(file)
     end
-  end
+  end)
 end

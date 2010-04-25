@@ -1,7 +1,7 @@
 module Net
   class HTTP
-    autoload :Response,        'http/response'
-    autoload :Request,         'http/request'
-    autoload :HTTP_1_1_Parser, 'http/http_1_1_parser'
+    autoload :Response,        'net/http/response'
+    autoload :Request,         'net/http/request'
+    autoload :HTTP_1_1_Parser, 'net/http/http_1_1_parser'
   end
 end
