@@ -1,0 +1,10 @@
+recipe :ruby
+
+process do |files|
+  files.take_and_map do |file|
+    case file
+    when %r{.*\.rl}
+      execute "ragel -R #{file}"
+    end
+  end
+end
