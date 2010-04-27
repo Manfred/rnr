@@ -1,0 +1,5 @@
+= TODO
+
+- Support for response generation
+- Support for request parsing
+- Roundtrip testing with request and response fixtures
