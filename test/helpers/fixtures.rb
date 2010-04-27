@@ -7,5 +7,9 @@ module Helpers
     def response(path)
       file_fixture('responses', "#{path}.txt").gsub(/\n/, "\r\n")
     end
+    
+    def request(path)
+      file_fixture('requests', "#{path}.txt").gsub(/\n/, "\r\n")
+    end
   end
 end
