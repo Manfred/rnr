@@ -9,7 +9,10 @@ class MethodsTest < Net::HTTP::TestCase
     
     FakeSocket.chunks = [response.to_s]
     
-    response = Net::HTTP.get(URI.parse('http://www.w3.org/poedels'))
-    p response
+    # We're stubbing the socket so the requested URI doesn't matter
+    response = Net::HTTP.get(URI.parse('http://www.example.com/resource'))
+    
+    assert_equal 200, response.status_code
+    assert_equal 'OK', response.reason_phrase
   end
 end

@@ -6,7 +6,12 @@ module Net
       attr_accessor :body
       
       def initialize
-        self.headers = {}
+        @http_version = '1.1'
+        @headers      = {}
+      end
+      
+      def to_s
+        Net::HTTP::HTTP_1_1_ResponseGenerator.new(self).to_s
       end
       
       def parse(input)
