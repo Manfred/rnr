@@ -1,6 +1,6 @@
 module Net
   class HTTP
-    class HTTP_1_1_Generator
+    class HTTP_1_1_RequestGenerator
       attr_accessor :request
       
       def initialize(request)

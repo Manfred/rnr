@@ -25,7 +25,7 @@ module Net
       end
       
       def to_s
-        Net::HTTP::HTTP_1_1_Generator.new(self).to_s
+        Net::HTTP::HTTP_1_1_RequestGenerator.new(self).to_s
       end
       
       def socket

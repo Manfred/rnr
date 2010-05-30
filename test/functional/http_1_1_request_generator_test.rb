@@ -1,6 +1,6 @@
 require File.expand_path('../../start', __FILE__)
 
-class HTTP_1_1_GeneratorTest < Net::HTTP::TestCase
+class HTTP_1_1_RequestGeneratorTest < Net::HTTP::TestCase
   attr_accessor :verb, :request_uri, :hostname, :http_version
   attr_accessor :headers
   attr_accessor :body
@@ -31,6 +31,6 @@ class HTTP_1_1_GeneratorTest < Net::HTTP::TestCase
   private
   
   def generator
-    @generator ||= Net::HTTP::HTTP_1_1_Generator.new(self)
+    @generator ||= Net::HTTP::HTTP_1_1_RequestGenerator.new(self)
   end
 end
