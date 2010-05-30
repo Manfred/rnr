@@ -1,3 +1,5 @@
+require 'socket'
+
 module Net
   class HTTP
     class Request
@@ -19,11 +21,17 @@ module Net
       end
       
       def request_uri
-        [url.path, url.query].compact.join('?')
+        [url.path == '' ? '/' : url.path, url.query].compact.join('?')
       end
       
       def to_s
         Net::HTTP::HTTP_1_1_Generator.new(self).to_s
+      end
+      
+      def perform
+        socket = TCPSocket.open(hostname, 80)
+        socket.write(to_s)
+        Net::HTTP::Response.parse(socket.read)
       end
     end
   end

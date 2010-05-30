@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# When it's invoked directly and not from Rubygems
+if $0 == __FILE__; $:.unshift(File.expand_path("../../lib", __FILE__)) end
+
+require 'net/http'
+require 'uri'
+
+response = Net::HTTP.get(URI.parse(ARGV[0]))
+p response.body
