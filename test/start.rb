@@ -5,6 +5,7 @@ require 'net/http'
 
 $:.unshift File.expand_path('..', __FILE__)
 require 'helpers/fixtures'
+require 'helpers/sockets'
 require 'helpers/syntax'
 
 class Net::HTTP::TestCase < Test::Unit::TestCase

@@ -28,8 +28,11 @@ module Net
         Net::HTTP::HTTP_1_1_Generator.new(self).to_s
       end
       
+      def socket
+        @socket ||= TCPSocket.open(hostname, 80)
+      end
+      
       def perform
-        socket = TCPSocket.open(hostname, 80)
         socket.write(to_s)
         Net::HTTP::Response.parse(socket.read)
       end
