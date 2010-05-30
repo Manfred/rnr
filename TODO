@@ -3,3 +3,22 @@
 - Support for response generation
 - Support for request parsing
 - Roundtrip testing with request and response fixtures
+
+
+def initialize(verb, url, headers={}, body=nil, options={})
+
+Net::HTTP.get(URI.parse('http://example.com/path/to/resource'), {
+  'Accept' => 'application/json'
+})
+
+Net::HTTP::Request.new(:get, URI.parse('http://example.com/path/to/resource'), {
+  'Accept' => 'application/json'
+})
+
+response = Net::HTTP.post(
+  URI.parse('https://example.com/path/to/resource'),
+  { 'Accept' => 'application/json', 'Content-type' => 'application/json' },
+  JSON.dump({'name' => 'Poedels'}),
+  :verify_certificates => true
+)
+JSON.parse(response.body)

@@ -12,11 +12,11 @@ module Net
       end
       
       def request_line
-        [request.verb, request.request_uri, http_version].join(' ')
+        [request.verb.to_s.upcase, request.request_uri, http_version].join(' ')
       end
       
       def serialized_headers
-        serialized = []
+        serialized = [['Host', request.hostname].join(': ')]
         for key, value in request.headers
           serialized << [
             Net::HTTP::HEADER_MAP[key] || key.capitalize,

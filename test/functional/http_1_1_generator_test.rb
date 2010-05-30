@@ -1,17 +1,17 @@
 require File.expand_path('../../start', __FILE__)
 
 class HTTP_1_1_GeneratorTest < Net::HTTP::TestCase
-  attr_accessor :verb, :request_uri, :http_version
+  attr_accessor :verb, :request_uri, :hostname, :http_version
   attr_accessor :headers
   attr_accessor :body
   
   def setup
     @verb         = 'GET'
     @request_uri  = '/pub/WWW/TheProject.html'
+    @hostname     = 'www.w3.org'
     @http_version = '1.1'
     @headers      = {
       'accept'       => '*.*',
-      'host'         => 'www.w3.org',
       'max-forwards' => 0
     }
   end
@@ -21,11 +21,11 @@ class HTTP_1_1_GeneratorTest < Net::HTTP::TestCase
   end
   
   test "generates headers" do
-    assert_equal "Accept: *.*\r\nMax-Forwards: 0\r\nHost: www.w3.org", generator.serialized_headers
+    assert_equal "Host: www.w3.org\r\nAccept: *.*\r\nMax-Forwards: 0", generator.serialized_headers
   end
   
   test "generates" do
-    assert_equal "GET /pub/WWW/TheProject.html HTTP/1.1\r\nAccept: *.*\r\nMax-Forwards: 0\r\nHost: www.w3.org\r\n\r\n", generator.to_s
+    assert_equal "GET /pub/WWW/TheProject.html HTTP/1.1\r\nHost: www.w3.org\r\nAccept: *.*\r\nMax-Forwards: 0\r\n\r\n", generator.to_s
   end
   
   private

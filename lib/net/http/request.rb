@@ -1,13 +1,25 @@
 module Net
   class HTTP
     class Request
-      attr_accessor :verb, :request_uri, :http_version
-      attr_accessor :headers
-      attr_accessor :body
+      attr_accessor :verb, :url, :headers, :body, :options
+      attr_accessor :http_version
       
-      def initialize
-        self.http_version = '1.1'
-        self.headers      = {}
+      def initialize(verb=nil, url=nil, headers={}, body=nil, options={})
+        @http_version = '1.1'
+        @headers      = headers
+        
+        @verb    = verb
+        @url     = url
+        @body    = body
+        @options = options
+      end
+      
+      def hostname
+        url.host
+      end
+      
+      def request_uri
+        [url.path, url.query].compact.join('?')
       end
       
       def to_s
