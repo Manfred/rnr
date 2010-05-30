@@ -7,4 +7,4 @@ require 'net/http'
 require 'uri'
 
 response = Net::HTTP.get(URI.parse(ARGV[0]))
-p response.body
+p response

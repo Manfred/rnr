@@ -3,6 +3,7 @@ require File.expand_path('../../start', __FILE__)
 class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   attr_accessor :http_version, :status_code, :reason_phrase
   attr_accessor :headers
+  attr_accessor :body
   
   def setup
     @lines = []
@@ -27,6 +28,16 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
     assert_equal 'application/json; charset=utf-8', headers['content-type']
   end
   
+  test "parses body" do
+    send_status_line
+    send_header
+    send_header_end
+    send_body
+    parse
+    
+    assert_equal '{}', body
+  end
+  
   private
   
   def parser
@@ -43,6 +54,10 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   
   def send_header_end
     @lines << nil
+  end
+  
+  def send_body
+    @lines << "{}"
   end
   
   def parse

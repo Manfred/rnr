@@ -15,6 +15,9 @@ module Net
         action start_field_value { start_field_value = p }
         action end_field_value { parser.handle_field_value(data, start_field_value, p) }
         
+        action start_body { mark = p }
+        action end_body { parser.handle_body(data, mark, p) }
+        
         action done { parser.done! }
         
         CRLF       = "\r\n";
@@ -35,7 +38,9 @@ module Net
         field_value = any* >start_field_value %end_field_value;
         message_header = field_name ":" SP* field_value :> CRLF;
         
-        main   := status_line (message_header)* (CRLF @done);
+        message_body = any* >start_body %end_body;
+        
+        main   := status_line (message_header)* (CRLF message_body @done);
       }%%
       
       %% write data;
@@ -84,6 +89,10 @@ module Net
           value = self.class.join(data, mark, pointer)
           response.headers[@last_field_name] = value
         end
+      end
+      
+      def handle_body(data, mark, pointer)
+        response.body = self.class.join(data, mark, pointer)
       end
       
       def done!
