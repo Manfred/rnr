@@ -3,7 +3,12 @@ recipe :ruby
 module TestMapper
   def self.tests_for(file)
     name = file.split('/').last.split('.').first
-    ["test/functional/#{name}_test.rb"]
+    [
+      "test/functional/#{name}_test.rb",
+      "test/unit/#{name}_test.rb"
+    ].select do |filename|
+      File.exist?(filename)
+    end
   end
 end
 
