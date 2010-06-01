@@ -16,8 +16,6 @@ module Net
     autoload :Response,                   'net/http/response'
     autoload :Request,                    'net/http/request'
     
-    class << self
-      include Net::HTTP::Methods
-    end
+    extend Net::HTTP::Methods
   end
 end
