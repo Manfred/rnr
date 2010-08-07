@@ -12,7 +12,6 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   
   test "parses the status line" do
     send_status_line
-    parse
     
     assert_equal '1.1', http_version
     assert_equal 200, status_code
@@ -23,7 +22,6 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
     send_status_line
     send_header
     send_header_end
-    parse
     
     assert_equal 'application/json; charset=utf-8', headers['content-type']
   end
@@ -33,7 +31,6 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
     send_header
     send_header_end
     send_body
-    parse
     
     assert_equal '{}', body
   end
@@ -45,22 +42,18 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   end
   
   def send_status_line
-    @lines << "HTTP/1.1 200 OK"
+    parser.parse "HTTP/1.1 200 OK\r\n"
   end
   
   def send_header
-    @lines << "Content-Type: application/json; charset=utf-8"
+    parser.parse  "Content-Type: application/json; charset=utf-8\r\n"
   end
   
   def send_header_end
-    @lines << nil
+    parser.parse "\r\n"
   end
   
   def send_body
-    @lines << "{}"
-  end
-  
-  def parse
-    parser.parse((@lines + [nil]).join("\r\n"))
+    parser.parse "{}"
   end
 end

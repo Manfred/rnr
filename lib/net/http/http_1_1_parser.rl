@@ -18,7 +18,7 @@ module Net
         action start_body { mark = p }
         action end_body { parser.handle_body(data, mark, p) }
         
-        action done { parser.done! }
+        action done { parser.done!(data, p) }
         
         CRLF       = "\r\n";
         CTL        = (cntrl | 127);
@@ -38,31 +38,49 @@ module Net
         field_value = any* >start_field_value %end_field_value;
         message_header = field_name ":" SP* field_value :> CRLF;
         
-        message_body = any* >start_body %end_body;
-        
-        main   := status_line (message_header)* (CRLF message_body @done);
+        main   := status_line (message_header)* (CRLF @done);
       }%%
       
       %% write data;
       
       def self.http_1_1_parser_parse(parser, data)
-        eof  = data.length
-        data = data.unpack("c*") if data.is_a?(String)
-        %% write init;
+        if parser.cs.nil?
+          %% write init;
+        else
+          cs = parser.cs
+        end
+        
+        p   = parser.p
+        pe  = data.length
+        eof = parser.eof
+        
         %% write exec;
+        
+        parser.cs = cs
+        parser.p  = p
       end
       
-      attr_accessor :data, :mark
+      attr_accessor :p, :cs, :eof, :data, :mark
       attr_accessor :response
       attr_accessor :done
       
       def initialize(response)
-        self.response = response
-        self.done = false
+        @p        = 0
+        @cs       = nil
+        @eof      = -1
+        @data     = []
+        
+        @done     = false
+        @response = response
       end
       
-      def parse(data)
-        self.class.http_1_1_parser_parse(self, data)
+      def parse(input)
+        if @done
+          handle_body(input)
+        else
+          @data.concat(input.kind_of?(String) ? input.unpack('C*') : input)
+          self.class.http_1_1_parser_parse(self, @data)
+        end
       end
       
       def handle_version(data, mark, pointer)
@@ -91,12 +109,14 @@ module Net
         end
       end
       
-      def handle_body(data, mark, pointer)
-        response.body = self.class.join(data, mark, pointer)
+      def handle_body(input)
+        response.body ||= ''
+        response.body << input
       end
       
-      def done!
-        self.done = true
+      def done!(data, pointer)
+        @done = true
+        handle_body(self.class.join(data, pointer, -1))
       end
       
       def self.join(data, mark, pointer)
