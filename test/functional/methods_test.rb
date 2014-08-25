@@ -1,4 +1,4 @@
-require File.expand_path('../../start', __FILE__)
+require_relative '../start'
 require 'uri'
 
 class MethodsTest < Net::HTTP::TestCase

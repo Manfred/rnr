@@ -1,4 +1,5 @@
-require 'test/unit'
+gem 'minitest'
+require 'minitest/autorun'
 
 $:.unshift File.expand_path('../../lib', __FILE__)
 require 'net/http'
@@ -8,9 +9,9 @@ require 'helpers/fixtures'
 require 'helpers/sockets'
 require 'helpers/syntax'
 
-class Net::HTTP::TestCase < Test::Unit::TestCase
+class Net::HTTP::TestCase < Minitest::Test
+  parallelize_me!
+
   include Helpers::Fixtures
   extend Helpers::Syntax
-  def default_test
-  end
 end

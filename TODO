@@ -19,6 +19,6 @@ response = Net::HTTP.post(
   URI.parse('https://example.com/path/to/resource'),
   { 'Accept' => 'application/json', 'Content-type' => 'application/json' },
   JSON.dump({'name' => 'Poedels'}),
-  :verify_certificates => true
+  verify_certificates: true
 )
 JSON.parse(response.body)

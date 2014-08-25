@@ -1,4 +1,4 @@
-require File.expand_path('../../start', __FILE__)
+require_relative '../start'
 
 class HTTP_1_1_RequestGeneratorTest < Net::HTTP::TestCase
   attr_accessor :verb, :request_uri, :hostname, :http_version

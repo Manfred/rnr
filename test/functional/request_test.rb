@@ -1,4 +1,4 @@
-require File.expand_path('../../start', __FILE__)
+require_relative '../start'
 require 'uri'
 
 class RequestTest < Net::HTTP::TestCase
@@ -8,9 +8,13 @@ class RequestTest < Net::HTTP::TestCase
       'user-agent' => 'Ruby/1.8.7',
       'accept' => '*.*'
     })
-    
+
     message = request.to_s
     assert_equal "GET /pub/WWW/TheProject.html HTTP/1.1\r\n", message[0,39]
-    assert_equal "Host: www.w3.org\r\nAccept: *.*\r\nUser-Agent: Ruby/1.8.7\r\n\r\n", message[39..-1]
+
+    headers = Hash[message[39..-1].split("\r\n").map { |l| l.split(':', 2) }]
+    assert_equal 'www.w3.org', headers['Host'].strip
+    assert_equal 'Ruby/1.8.7', headers['User-Agent'].strip
+    assert_equal '*.*', headers['Accept'].strip
   end
 end

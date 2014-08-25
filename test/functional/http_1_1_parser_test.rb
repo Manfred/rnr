@@ -1,4 +1,4 @@
-require File.expand_path('../../start', __FILE__)
+require_relative '../start'
 
 class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   attr_accessor :http_version, :status_code, :reason_phrase

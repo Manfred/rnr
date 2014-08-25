@@ -2,13 +2,11 @@ require 'rake/testtask'
 
 desc 'Run all tests'
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
 
-require 'rake/rdoctask'
-
+require 'rdoc/task'
 namespace :documentation do
   Rake::RDocTask.new(:generate) do |rd|
     rd.main = "README.rdoc"
@@ -17,4 +15,4 @@ namespace :documentation do
   end
 end
 
-task :default => :test
+task default: :test
