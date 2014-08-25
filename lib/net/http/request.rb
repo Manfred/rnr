@@ -42,12 +42,10 @@ module Net
       
       def perform
         socket.write(to_s)
-        begin
-          response.parse(socket.recv_nonblock(1024))
-        rescue IO::WaitReadable
-          IO.select([socket])
-          retry
+        while (data = socket.read(1024))
+          response.parse(data)
         end
+        response.finalize
         response
       end
     end

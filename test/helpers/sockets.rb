@@ -3,12 +3,15 @@ class FakeSocket
     attr_accessor :chunks
   end
   
-  def read
+  def read(maxlength=1024)
     @chunk_position ||= 0
     current_chunk = self.class.chunks[@chunk_position]
     @chunk_position += 1
-    @chunk_position = 0 if @chunk_position >= self.class.chunks.length
-    current_chunk
+    if @chunk_position > self.class.chunks.length
+      nil
+    else
+      current_chunk
+    end
   end
   
   def write(*)

@@ -29,11 +29,15 @@ class MethodsTest < Net::HTTP::TestCase
     run_assertions
   end
   
+  test "has a PATCH shortcut" do
+    @response = Net::HTTP.patch(URI.parse('http://www.example.com/resource'))
+    run_assertions
+  end
+  
   test "has a DELETE shortcut" do
     @response = Net::HTTP.delete(URI.parse('http://www.example.com/resource'))
     run_assertions
   end
-  
   
   private
   

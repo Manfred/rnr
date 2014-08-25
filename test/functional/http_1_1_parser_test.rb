@@ -6,6 +6,7 @@ class HTTP_1_1_ParserTest < Net::HTTP::TestCase
   attr_accessor :body
   
   def setup
+    @parser = nil
     @lines = []
     @headers = {}
   end
