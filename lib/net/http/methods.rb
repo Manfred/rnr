@@ -17,6 +17,10 @@ module Net
         Net::HTTP::Request.new(:put, url, headers, body, options).perform
       end
       
+      def patch(url, headers={}, body=nil, options={})
+        Net::HTTP::Request.new(:patch, url, headers, body, options).perform
+      end
+      
       def delete(url, headers={}, options={})
         Net::HTTP::Request.new(:delete, url, headers, nil, options).perform
       end
