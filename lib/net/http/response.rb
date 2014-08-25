@@ -14,8 +14,12 @@ module Net
         Net::HTTP::HTTP_1_1_ResponseGenerator.new(self).to_s
       end
       
+      def parser
+        @parser ||= Net::HTTP::HTTP_1_1_Parser.new(self)
+      end
+      
       def parse(input)
-        Net::HTTP::HTTP_1_1_Parser.new(self).parse(input)
+        parser.parse(input)
       end
       
       def self.parse(input)

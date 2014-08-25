@@ -6,5 +6,9 @@ if $0 == __FILE__; $:.unshift(File.expand_path("../../lib", __FILE__)) end
 require 'net/http'
 require 'uri'
 
-response = Net::HTTP.get(URI.parse(ARGV[0]))
-p response
+uri = URI.parse(ARGV[0])
+response = Net::HTTP.get(uri,
+  'Accept' => '*.*',
+  'Connection' => 'close'
+)
+puts response

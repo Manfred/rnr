@@ -20,6 +20,10 @@ module Net
         url.host
       end
       
+      def port
+        url.port
+      end
+      
       def request_uri
         [url.path == '' ? '/' : url.path, url.query].compact.join('?')
       end
@@ -29,12 +33,22 @@ module Net
       end
       
       def socket
-        @socket ||= TCPSocket.open(hostname, 80)
+        @socket ||= TCPSocket.open(hostname, port)
+      end
+      
+      def response
+        @response ||= Net::HTTP::Response.new
       end
       
       def perform
         socket.write(to_s)
-        Net::HTTP::Response.parse(socket.read)
+        begin
+          response.parse(socket.recv_nonblock(1024))
+        rescue IO::WaitReadable
+          IO.select([socket])
+          retry
+        end
+        response
       end
     end
   end
