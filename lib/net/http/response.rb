@@ -1,6 +1,8 @@
 module Net
   class HTTP
     class Response
+      include Net::HTTP::BufferedParsing
+      
       attr_accessor :http_version, :status_code, :reason_phrase
       attr_accessor :headers
       attr_accessor :body
@@ -15,23 +17,7 @@ module Net
       end
       
       def parser
-        @parser ||= Net::HTTP::HTTP_1_1_Parser.new(self)
-      end
-      
-      def parse(input)
-        @buffer ||= ''
-        @buffer.concat(input)
-        parts = @buffer.split(Net::HTTP::CRLF, 2)
-        if parts.length > 1
-          parser.parse(parts[0] + Net::HTTP::CRLF)
-          @buffer = parts[1]
-        end
-      end
-      
-      def finalize
-        unless @buffer.nil?
-          parser.parse(@buffer)
-        end
+        @parser ||= Net::HTTP::HTTP_1_1_ResponseParser.new(self)
       end
       
       def self.parse(input)

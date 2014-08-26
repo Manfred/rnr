@@ -1,10 +1,13 @@
+require 'uri'
 require 'socket'
 
 module Net
   class HTTP
     class Request
+      include Net::HTTP::BufferedParsing
+      
       attr_accessor :verb, :url, :headers, :body, :options
-      attr_accessor :http_version
+      attr_accessor :request_uri, :http_version
       
       def initialize(verb=nil, url=nil, headers={}, body=nil, options={})
         @http_version = '1.1'
@@ -14,6 +17,14 @@ module Net
         @url     = url
         @body    = body
         @options = options
+      end
+      
+      def url
+        if @url.nil? && !@request_uri.nil?
+          URI.parse(@request_uri)
+        else
+          @url
+        end
       end
       
       def hostname
@@ -45,6 +56,17 @@ module Net
         while (data = socket.read(1024))
           response.parse(data)
         end
+        response.finalize
+        response
+      end
+      
+      def parser
+        @parser ||= Net::HTTP::HTTP_1_1_RequestParser.new(self)
+      end
+      
+      def self.parse(input)
+        response = new
+        response.parse(input)
         response.finalize
         response
       end
