@@ -9,9 +9,11 @@ module Net
     
     HEADER_MAP = (GENERAL_HEADER_FIELDS + REQUEST_HEADER_FIELDS + RESPONSE_HEADER_FIELDS + ENTITY_HEADER_FIELDS).inject({}) { |map, header| map[header.downcase] = header; map }
     
+    autoload :BufferedParsing,            'net/http/buffered_parsing'
     autoload :HTTP_1_1_ResponseGenerator, 'net/http/http_1_1_response_generator'
+    autoload :HTTP_1_1_ResponseParser,    'net/http/http_1_1_response_parser'
     autoload :HTTP_1_1_RequestGenerator,  'net/http/http_1_1_request_generator'
-    autoload :HTTP_1_1_Parser,            'net/http/http_1_1_parser'
+    autoload :HTTP_1_1_RequestParser,     'net/http/http_1_1_request_parser'
     autoload :Methods,                    'net/http/methods'
     autoload :Response,                   'net/http/response'
     autoload :Request,                    'net/http/request'

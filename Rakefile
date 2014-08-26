@@ -16,7 +16,8 @@ namespace :documentation do
 end
 
 task :ragel do
-  sh "ragel -R lib/net/http/http_1_1_parser.rl"
+  sh "ragel -R lib/net/http/http_1_1_response_parser.rl"
+  sh "ragel -R lib/net/http/http_1_1_request_parser.rl"
 end
 
 task default: :test
